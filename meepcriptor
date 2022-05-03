@@ -21,6 +21,8 @@ function list() {
     gpg --list-keys
 }
 
+# Miss the Generate Key Function
+
 function encrypt() {
     local path=$(msg_path)
     # Change email with variable... :)
