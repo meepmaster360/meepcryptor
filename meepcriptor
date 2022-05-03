@@ -1,0 +1,51 @@
+#!/bin/bash
+# Author: meepmaster
+# Date: 03-05-2022
+# Description: Encrypt Decrypt Files
+
+
+function head() {
+    echo "[l] List keys"
+    echo "[g] Generate key"
+    echo "[e] Encrypt files"
+    echo "[d] Decrypt files"
+    echo "[q] Quit"
+}
+
+function msg_path() {
+    read -p "Path to file: " path
+    echo ${path}
+}
+
+function list() {
+    gpg --list-keys
+}
+
+function encrypt() {
+    local path=$(msg_path)
+    # Change email with variable... :)
+    gpg -r 'm***s@hotmail.com' -e ${path} && \
+    echo "Created ${path}.gpg encryption file"
+}
+
+function decrypt() {
+    local path=$(msg_path)
+    gpg -d ${path} && \
+    echo "Created ${path} decryption file"
+}
+
+function menu() {
+    while read -p "Select option: " o;
+    do
+        case $o in
+            l) list ;;
+            e) encrypt ;;
+            d) decrypt ;;
+            q) exit 1 ;;
+            *) echo "Option [${o}] not found"
+        esac
+    done
+}
+
+head
+menu
